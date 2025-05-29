@@ -26,25 +26,18 @@
   </label>
   </div>
 
-  <div class="clock-container container">
-    <div id="time"></div>
-    <div id="date"></div>
+  <div class="container">
+    <div class="clock-container">
+      <div id="time"></div>
+      <div id="date"></div>
+    </div>
   </div>
   <div class="container">
 
-    <form action="https://www.google.com/search" method="get" target="_blank">
-      <div class="search-bar-container">
-        <span class="search-icon">
-          <svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20px" height="20px">
-            <path
-              d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
-            </path>
-          </svg>
-        </span>
-        <input class="search-input w-500" type="text" name="q" aria-label="Pesquisar no Google"
-          placeholder="Pesquisar no Google" />
-      </div>
-    </form>
+    <div class="presentation-container">
+      <h1 id="presentation-text"></h1>
+      <p id="presentation-weather"></p>
+    </div>
 
     <div class="shortcuts-container">
       <a href="https://gemini.google.com/app" class="shortcut" title="Gemini">
@@ -81,5 +74,6 @@
 </body>
 <script src="assets/js/theme.js"></script>
 <script src="assets/js/clock.js"></script>
+<script src="assets/js/weather.js"></script>
 
 </html>

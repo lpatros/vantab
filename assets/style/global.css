@@ -28,16 +28,13 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
     background-color: var(--background-color-light);
-    /* Cor de fundo similar ao Chrome */
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    /* Alinhado ao topo para o toggle */
     min-height: 100vh;
     color: var(--text-color-light);
-    /* Cor do texto principal */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -62,10 +59,8 @@ body.dark-mode {
 .theme-switch {
     display: inline-block;
     height: 24px;
-    /* Ajustado para melhor proporção */
     position: relative;
     width: 44px;
-    /* Ajustado para melhor proporção */
 }
 
 .theme-switch-button {
@@ -93,10 +88,8 @@ body.dark-mode .theme-switch-wrapper span {
     justify-content: center;
     text-align: center;
     /* padding-top: 10vh; */
-    /* Espaçamento do topo */
     flex-grow: 1;
     width: 100%;
-    /* Garante que o container use a largura total */
 }
 
 .clock-container {
@@ -115,91 +108,42 @@ body.dark-mode .theme-switch-wrapper span {
     margin-top: 5px;
 }
 
-.logo-container img {
-    width: 272px;
-    height: 92px;
-    margin-bottom: 28px;
+.presentation-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.search-bar-container {
-    display: flex;
-    align-items: center;
-    background-color: var(--search-bar-bg-light);
-    border: 1px solid var(--search-bar-border-light);
-    border-radius: 24px;
-    /* Bordas arredondadas */
-    width: 100%;
-    max-width: 584px;
-    /* Largura máxima da barra */
-    height: 44px;
-    padding: 0 8px 0 14px;
-    margin-bottom: 24px;
-    box-shadow: var(--search-bar-shadow-light);
-    /* Sombra sutil */
-    transition: background-color 0.3s ease, border-color 0.3s ease,
-        box-shadow 0.3s ease;
+#presentation-text {
+    font-weight: 400;
+    margin-bottom: 0px;
 }
 
-body.dark-mode .search-bar-container {
-    background-color: var(--search-bar-bg-dark);
-    border: 1px solid var(--search-bar-border-dark);
-    box-shadow: var(--search-bar-shadow-dark);
+#presentation-weather {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 5px 0;
 }
 
-.search-bar-container:hover,
-.search-bar-container:focus-within {
-    border-color: rgba(223,
-            225,
-            229,
-            0);
-    /* Mantém a borda transparente no hover/focus */
-    box-shadow: var(--search-bar-hover-shadow-light);
+#presentation-weather .weather-icon {
+    font-size: 1.8rem;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
-body.dark-mode .search-bar-container:hover,
-body.dark-mode .search-bar-container:focus-within {
-    box-shadow: var(--search-bar-hover-shadow-dark);
-}
-
-.search-icon svg path {
-    fill: #9aa0a6;
-    /* Cor original do ícone de pesquisa */
-    transition: fill 0.3s ease;
-}
-
-body.dark-mode .search-icon svg path {
-    fill: #bdc1c6;
-    /* Cor do ícone de pesquisa no modo escuro */
-}
-
-.search-input {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    background-color: transparent;
-    color: var(--text-color-light);
-    transition: color 0.3s ease;
-}
-
-body.dark-mode .search-input {
-    color: var(--text-color-dark);
-}
-
-body.dark-mode .search-input::placeholder {
-    color: #9aa0a6;
-    /* Placeholder color for dark mode */
+#presentation-weather .temp-highlight {
+    font-size: 1.8rem;
+    font-weight: 500;
+    vertical-align: middle;
 }
 
 .shortcuts-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* 4 colunas para atalhos */
     gap: 16px;
-    /* Espaçamento entre atalhos */
     margin-top: 40px;
     max-width: 480px;
-    /* Largura máxima para os atalhos */
 }
 
 .shortcut {
@@ -219,7 +163,6 @@ body.dark-mode .shortcut {
 
 .shortcut:hover {
     background-color: var(--shortcut-hover-bg-light);
-    /* Cor ao passar o mouse */
 }
 
 body.dark-mode .shortcut:hover {
@@ -228,7 +171,6 @@ body.dark-mode .shortcut:hover {
 
 .shortcut-icon-container {
     background-color: var(--shortcut-icon-bg-light);
-    /* Fundo do ícone */
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -259,7 +201,6 @@ body.dark-mode .shortcut-icon {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 80px;
-    /* Para evitar que o texto quebre muito */
 }
 
 footer {
@@ -282,5 +223,4 @@ body.dark-mode footer {
 
 .link-footer:hover {
     color: white;
-
 }
