@@ -1,0 +1,286 @@
+:root {
+    --background-color-light: #f1f3f4;
+    --text-color-light: #202124;
+    --search-bar-bg-light: #fff;
+    --search-bar-border-light: #dfe1e5;
+    --search-bar-shadow-light: 0 1px 6px rgba(32, 33, 36, 0.28);
+    --search-bar-hover-shadow-light: 0 2px 8px 1px rgba(64, 60, 67, 0.24);
+    --shortcut-hover-bg-light: #e8eaed;
+    --shortcut-icon-bg-light: #f1f3f4;
+    --shortcut-icon-border-light: #dadce0;
+    --shortcut-icon-color-light: #5f6368;
+    --footer-text-color-light: #5f6368;
+
+    --background-color-dark: #202124;
+    --text-color-dark: #e8eaed;
+    --search-bar-bg-dark: #303134;
+    --search-bar-border-dark: #5f6368;
+    --search-bar-shadow-dark: 0 1px 6px rgba(0, 0, 0, 0.28);
+    --search-bar-hover-shadow-dark: 0 2px 8px 1px rgba(0, 0, 0, 0.24);
+    --shortcut-hover-bg-dark: #3c4043;
+    --shortcut-icon-bg-dark: #303134;
+    --shortcut-icon-border-dark: #5f6368;
+    --shortcut-icon-color-dark: #e8eaed;
+    --footer-text-color-dark: #9aa0a6;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    background-color: var(--background-color-light);
+    /* Cor de fundo similar ao Chrome */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* Alinhado ao topo para o toggle */
+    min-height: 100vh;
+    color: var(--text-color-light);
+    /* Cor do texto principal */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
+
+.w-500 {
+    width: 500px;
+}
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 24px;
+    /* Ajustado para melhor proporção */
+    position: relative;
+    width: 44px;
+    /* Ajustado para melhor proporção */
+}
+
+.theme-switch-button {
+    background-color: transparent;
+    transition: transform 0.3s ease-in-out;
+    height: 30px;
+    width: 30px;
+    border: none;
+    opacity: 0.8;
+}
+
+.theme-switch-button:hover {
+    cursor: pointer;
+    transform: scale(1.15);
+}
+
+body.dark-mode .theme-switch-wrapper span {
+    color: var(--text-color-dark);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* padding-top: 10vh; */
+    /* Espaçamento do topo */
+    flex-grow: 1;
+    width: 100%;
+    /* Garante que o container use a largura total */
+}
+
+.clock-container {
+    text-align: center;
+}
+
+#time {
+    font-size: 5rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+#date {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+.logo-container img {
+    width: 272px;
+    height: 92px;
+    margin-bottom: 28px;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    background-color: var(--search-bar-bg-light);
+    border: 1px solid var(--search-bar-border-light);
+    border-radius: 24px;
+    /* Bordas arredondadas */
+    width: 100%;
+    max-width: 584px;
+    /* Largura máxima da barra */
+    height: 44px;
+    padding: 0 8px 0 14px;
+    margin-bottom: 24px;
+    box-shadow: var(--search-bar-shadow-light);
+    /* Sombra sutil */
+    transition: background-color 0.3s ease, border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+body.dark-mode .search-bar-container {
+    background-color: var(--search-bar-bg-dark);
+    border: 1px solid var(--search-bar-border-dark);
+    box-shadow: var(--search-bar-shadow-dark);
+}
+
+.search-bar-container:hover,
+.search-bar-container:focus-within {
+    border-color: rgba(223,
+            225,
+            229,
+            0);
+    /* Mantém a borda transparente no hover/focus */
+    box-shadow: var(--search-bar-hover-shadow-light);
+}
+
+body.dark-mode .search-bar-container:hover,
+body.dark-mode .search-bar-container:focus-within {
+    box-shadow: var(--search-bar-hover-shadow-dark);
+}
+
+.search-icon svg path {
+    fill: #9aa0a6;
+    /* Cor original do ícone de pesquisa */
+    transition: fill 0.3s ease;
+}
+
+body.dark-mode .search-icon svg path {
+    fill: #bdc1c6;
+    /* Cor do ícone de pesquisa no modo escuro */
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: transparent;
+    color: var(--text-color-light);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .search-input {
+    color: var(--text-color-dark);
+}
+
+body.dark-mode .search-input::placeholder {
+    color: #9aa0a6;
+    /* Placeholder color for dark mode */
+}
+
+.shortcuts-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 colunas para atalhos */
+    gap: 16px;
+    /* Espaçamento entre atalhos */
+    margin-top: 40px;
+    max-width: 480px;
+    /* Largura máxima para os atalhos */
+}
+
+.shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color-light);
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out, color 0.3s ease;
+}
+
+body.dark-mode .shortcut {
+    color: var(--text-color-dark);
+}
+
+.shortcut:hover {
+    background-color: var(--shortcut-hover-bg-light);
+    /* Cor ao passar o mouse */
+}
+
+body.dark-mode .shortcut:hover {
+    background-color: var(--shortcut-hover-bg-dark);
+}
+
+.shortcut-icon-container {
+    background-color: var(--shortcut-icon-bg-light);
+    /* Fundo do ícone */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    border: 1px solid var(--shortcut-icon-border-light);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark-mode .shortcut-icon-container {
+    background-color: var(--shortcut-icon-bg-dark);
+    border: 1px solid var(--shortcut-icon-border-dark);
+}
+
+.shortcut-icon {
+    width: 24px;
+}
+
+body.dark-mode .shortcut-icon {
+    color: var(--shortcut-icon-color-dark);
+}
+
+.shortcut-label {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+    /* Para evitar que o texto quebre muito */
+}
+
+footer {
+    font-size: 12px;
+    color: var(--footer-text-color-light);
+    padding: 20px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode footer {
+    color: var(--footer-text-color-dark);
+}
+
+.link-footer {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.link-footer:hover {
+    color: white;
+
+}
