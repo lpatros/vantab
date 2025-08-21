@@ -1,0 +1,20 @@
+@import url('./global.css');
+
+#presentation-weather {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 5px 0;
+}
+
+#presentation-weather .weather-icon {
+    font-size: 1.8rem;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+#presentation-weather .temp-highlight {
+    font-size: 1.8rem;
+    font-weight: 500;
+    vertical-align: middle;
+}

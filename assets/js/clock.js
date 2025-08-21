@@ -1,7 +1,16 @@
-const updateClock = () => {
+const clockContainer = document.querySelector('#clock-container');
+clockContainer.innerHTML = `
+  <div class="clock-container">
+    <div id="time"></div>
+    <div id="date"></div>
+  </div>
+  `;
+
+const setClock = () => {
   const now = new Date();
-  const timeElement = document.getElementById('time');
-  const dateElement = document.getElementById('date');
+  const timeElement = document.querySelector('#time');
+  const dateElement = document.querySelector('#date');
+
 
   // Formato: (HH:MM)
   const hours = String(now.getHours()).padStart(2, '0');
@@ -11,12 +20,8 @@ const updateClock = () => {
   // Formato: "quinta-feira, 29 de maio"
   const optionsDate = { weekday: 'long', day: 'numeric', month: 'long' };
   const formattedDate = now.toLocaleDateString('pt-BR', optionsDate);
-
-  dateElement.textContent = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1).replace(/\bde\b\s(\w)/, (match, p1) => `de ${p1.toUpperCase()}`);
+  dateElement.textContent = formattedDate;
 }
 
-// Atualiza o relógio a cada segundo
-setInterval(updateClock, 1000);
-
-// Chamada inicial para exibir o relógio imediatamente
-updateClock();
+setInterval(setClock, 1000);
+setClock();

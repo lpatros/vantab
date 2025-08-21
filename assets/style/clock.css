@@ -1,0 +1,27 @@
+@import url('./global.css');
+
+@keyframes showClock {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.clock-container {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: showClock 0.5s forwards;
+}
+
+#time {
+    font-size: 5rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+#date {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 5px;
+}
