@@ -20,6 +20,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-radius: 15px;
   min-width: 150px;
+  z-index: 9;
 }
 
 
@@ -35,7 +36,6 @@
     border-radius: 15px;
     font-size: 1rem;
     font-family: inherit;
-    z-index: 9;
 }
 
 .dropdown a {
