@@ -1,4 +1,4 @@
-const presentationWeatherElement = document.getElementById('presentation-weather');
+const presentationWeatherElement = document.querySelector('#weather');
 
 // Mapeia códigos de ícone do OpenWeatherMap para Font Awesome
 const getWeatherIcon = (iconCode) => {
@@ -51,7 +51,7 @@ const fetchWeather = async (apiKey) => {
   }
 }
 
-export const setWeather = () => {
+const setWeather = async () => {
   
   const apiKey = localStorage.getItem('apiKey');
   
@@ -61,7 +61,7 @@ export const setWeather = () => {
     return;
   }
   
-  const data = fetchWeather(apiKey);
+  const data = await fetchWeather(apiKey);
   
   if (!data) {
     console.error("Dados do tempo indisponíveis.");
@@ -84,13 +84,6 @@ export const setWeather = () => {
   `;
 }
 
-export default setWeather;
+setWeather();
 
-// Inicializar
-// setGreeting();
-// setWeather();
-
-// Atualizar a saudação e o tempo periodicamente (opcional)
-// Saudação muda menos frequentemente, a cada minuto para pegar a hora certa.
-// setInterval(setGreeting, 60000); // Atualiza a saudação a cada minuto
-// setInterval(fetchWeather, 600000); // Atualiza o tempo a cada 10 minutos (600000 ms)
+setInterval(fetchWeather, 600000); // Atualiza o tempo a cada 10 minutos (600000 ms)

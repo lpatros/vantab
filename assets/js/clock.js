@@ -1,16 +1,16 @@
 const clockContainer = document.querySelector('#clock-container');
-clockContainer.innerHTML = `
-  <div class="clock-container">
-    <div id="time"></div>
-    <div id="date"></div>
-  </div>
-  `;
+
+const timeElement = document.createElement('div');
+timeElement.id = 'time';
+clockContainer.appendChild(timeElement);
+
+const dateElement = document.createElement('div');
+dateElement.id = 'date';
+clockContainer.appendChild(dateElement);
 
 const setClock = () => {
+  
   const now = new Date();
-  const timeElement = document.querySelector('#time');
-  const dateElement = document.querySelector('#date');
-
 
   // Formato: (HH:MM)
   const hours = String(now.getHours()).padStart(2, '0');
@@ -23,5 +23,6 @@ const setClock = () => {
   dateElement.textContent = formattedDate;
 }
 
-setInterval(setClock, 1000);
 setClock();
+
+setInterval(setClock, 1000);

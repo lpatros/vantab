@@ -6,7 +6,9 @@
     margin-bottom: 20px;
 }
 
-#presentation-text {
+#greeting {
     font-weight: 400;
     margin-bottom: 0px;
+    opacity: 0;
+    animation: slideFadeIn 2s forwards;
 }

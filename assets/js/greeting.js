@@ -1,7 +1,7 @@
 const presentationTextElement = document.querySelector('#greeting');
 const userName = localStorage.getItem('userName') || null;
 
-export const setGreeting = () => {
+const setGreeting = () => {
   const now = new Date();
   const hour = now.getHours();
   let greeting = "Olá";
@@ -17,3 +17,7 @@ export const setGreeting = () => {
   // Exibir saudação com o nome do usuário, se houver
   presentationTextElement.textContent = userName && `${greeting}, ${userName}` || `${greeting}`;
 }
+
+setGreeting();
+
+setInterval(setGreeting, 60000); // Atualiza a saudação a cada minuto
