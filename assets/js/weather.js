@@ -47,7 +47,6 @@ const fetchWeather = async (apiKey) => {
     
   } catch (error) {
     console.error("Falha ao buscar dados do tempo:", error);
-    presentationWeatherElement.textContent = "Não foi possível carregar o tempo.";
   }
 }
 

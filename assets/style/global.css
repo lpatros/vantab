@@ -21,6 +21,13 @@
   --shortcut-icon-border-dark: #5f6368;
   --shortcut-icon-color-dark: #e8eaed;
   --footer-text-color-dark: #9aa0a6;
+
+  --slider-color-disable-black: rgb(100, 100, 100);
+  --slider-color-active-green: rgb(0, 190, 0);;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @keyframes slideFadeIn {
@@ -126,4 +133,114 @@ body.light-mode footer {
 .link-footer:hover {
   opacity: 1;
   color: white;
+}
+
+/* settings */
+
+
+div#settingsDivContainer {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+div#settingsDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100vh;
+  min-width: 300px;
+  padding: 20px;
+  background-color: #2e2e2e;
+  box-shadow: inset 3px 0px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+section#settingsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#close-settings {
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+#close-settings:hover {
+  color: rgb(130, 130, 130);
+  transform: scale(1.1);
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+div#settingsDiv .settingsItemTittle {
+  display: block;
+  margin: 30px 15px 0;
+  color: rgba(255, 255, 255, 0.50);
+}
+
+div#settingsDiv .settingsItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+/* Slider de on/off */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--slider-color-disable-black);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 5px;
+  bottom: 5px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--slider-color-active-green);
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
 }

@@ -9,7 +9,7 @@ dateElement.id = 'date';
 clockContainer.appendChild(dateElement);
 
 const setClock = () => {
-  
+
   const now = new Date();
 
   // Formato: (HH:MM)
@@ -23,6 +23,35 @@ const setClock = () => {
   dateElement.textContent = formattedDate;
 }
 
-setClock();
+let clockInterval;
+const verifyClockVisibility = () => {
+  
+  const showClock = localStorage.getItem('showClock');
 
-setInterval(setClock, 1000);
+  clearInterval(clockInterval);
+  
+  if (showClock === 'false') {
+    clockContainer.style.display = 'none';
+    return;
+  }
+  
+  setClock();
+  clockInterval = setInterval(setClock, 1000);
+  clockContainer.removeAttribute('style');
+
+  if (showClock === null) {
+    localStorage.setItem('showClock', 'true');
+  }
+}
+
+const clockInput = document.querySelector('#settingsClock');
+
+clockInput.addEventListener('change', () => {
+  const isChecked = clockInput.checked;
+
+  localStorage.setItem('showClock', isChecked);
+
+  verifyClockVisibility();
+});
+
+verifyClockVisibility();

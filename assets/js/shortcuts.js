@@ -26,11 +26,28 @@ const searchUrlFavicon = (url, size=64) => {
     return `${googleUrl}?sz=${size}&domain=${url}`;
 }
 
-shortcutsContainer.innerHTML = shortcuts.map((shortcut, index) => `
-    <a href="${shortcut.url}" class="shortcut" title="${shortcut.name}" style="animation-delay: ${(index + 1) * 300}ms;" >
-        <div class="shortcut-icon-container">
-          <img src="${searchUrlFavicon(shortcut.url)}" class="shortcut-icon" alt="${shortcut.name} icon">
-        </div>
-        <span class="shortcut-label">${shortcut.name}</span>
-    </a>
-`).join('');
+shortcuts.forEach((shortcut, index) => {
+    const a = document.createElement('a');
+    a.href = shortcut.url;
+    a.className = 'shortcut';
+    a.title = shortcut.name;
+    a.style.animationDelay = `${(index + 1) * 300}ms`;
+
+    const iconContainer = document.createElement('div');
+    iconContainer.className = 'shortcut-icon-container';
+
+    const img = document.createElement('img');
+    img.src = searchUrlFavicon(shortcut.url);
+    img.className = 'shortcut-icon';
+    img.alt = `${shortcut.name} icon`;
+    iconContainer.appendChild(img);
+
+    a.appendChild(iconContainer);
+
+    const span = document.createElement('span');
+    span.className = 'shortcut-label';
+    span.textContent = shortcut.name;
+    a.appendChild(span);
+
+    shortcutsContainer.appendChild(a);
+});
