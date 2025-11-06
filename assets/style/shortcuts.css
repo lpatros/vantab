@@ -61,6 +61,7 @@ body.light-mode .shortcut-icon-container {
 .shortcut-icon {
     color: var(--shortcut-icon-color-dark);
     width: 24px;
+    border-radius: 10px;
 }
 
 body.light-mode .shortcut-icon {
