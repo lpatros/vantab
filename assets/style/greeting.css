@@ -1,0 +1,13 @@
+
+.presentation-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#greeting {
+    font-weight: 400;
+    margin-bottom: 0px;
+    opacity: 0;
+    animation: slideFadeIn 2s forwards;
+}

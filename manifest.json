@@ -1,0 +1,19 @@
+{
+    "name": "Vantab",
+    "description": "Simple and customizable start page, designed to replace the default 'New Tab' page.",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "permissions": [
+        "storage",
+        "scripting"
+    ],
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "icons": {
+        "16": "./assets/icons/home-16px.png",
+        "32": "./assets/icons/home-32px.png",
+        "48": "./assets/icons/home-64px.png",
+        "128": "./assets/icons/home-128px.png"
+    }
+}

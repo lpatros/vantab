@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nova Aba</title>
+  <title>New Tab</title>
 
   <!-- Global CSS -->
   <link rel="stylesheet" href="assets/style/global.css" />
+
+  <link rel="stylesheet" href="assets/style/bars.css" />
+  <link rel="stylesheet" href="assets/style/clock.css" />
+  <link rel="stylesheet" href="assets/style/shortcuts.css" />
+  <link rel="stylesheet" href="assets/style/greeting.css" />
+  <link rel="stylesheet" href="assets/style/weather.css" />
 
   <!-- favicon -->
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
@@ -17,63 +23,65 @@
 </head>
 
 <body>
-  <div class="theme-switch-wrapper">
-    <label class="theme-switch" for="button">
-      <button class="theme-switch-button" aria-label="Alternar tema" onclick="switchTheme()">
-        <i class="fa-regular fa-moon fa-2xl" id="toogle-theme"></i>
-      </button>
-  </div>
-  </label>
+
+  <div id="bars-container">
+
+    <!-- insert by bars.js -->
+
   </div>
 
-  <div class="container">
-    <div class="clock-container">
-      <div id="time"></div>
-      <div id="date"></div>
+  <section class="container">
+
+    <div id="clock-container">
+
+      <!-- insert by clock.js -->
+
     </div>
-  </div>
-  <div class="container">
+
+  </section>
+
+  <section class="container">
 
     <div class="presentation-container">
-      <h1 id="presentation-text"></h1>
-      <p id="presentation-weather"></p>
+
+      <h1 id="greeting">
+
+        <!-- insert by greeting.js -->
+
+      </h1>
+      <p id="weather">
+
+        <!-- insert by whether.js -->
+
+      </p>
+
     </div>
 
-    <div class="shortcuts-container">
-      <a href="https://gemini.google.com/app" class="shortcut" title="Gemini">
-        <div class="shortcut-icon-container">
-          <img src="assets/icons/gemini_icon.png" class="shortcut-icon" alt="Gemini icon">
-        </div>
-        <span class="shortcut-label">Gemini</span>
-      </a>
+    <div class="shortcuts-container" id="shortcuts-container">
 
-      <a href="https://mail.google.com" class="shortcut" title="Gmail">
-        <div class="shortcut-icon-container">
-          <img src="assets/icons/Gmail_icon_(2020).svg.png" class="shortcut-icon" alt="Gmail icon">
-        </div>
-        <span class="shortcut-label">Gmail</span>
-      </a>
+      <!-- insert by shortcuts.js -->
 
-      <a href="https://www.youtube.com" class="shortcut" title="YouTube">
-        <div class="shortcut-icon-container">
-          <i class="fa-brands fa-youtube fa-xl" style="color: #ff2e2e;"></i>
-        </div>
-        <span class="shortcut-label">YouTube</span>
-      </a>
-
-      <a href="https://www.github.com" class="shortcut" title="GitHub">
-        <div class="shortcut-icon-container">
-          <i class="fa-brands fa-github fa-xl"></i>
-        </div>
-        <span class="shortcut-label">GitHub</span>
-      </a>
     </div>
-  </div>
 
-  <footer><a href="http://github.com/lpatros" class="link-footer">@lpatros</a></footer>
+  </section>
+
+  <button id="settings-button">
+    <i class="fa-solid fa-gear"></i>
+    <span class="settings-text">Settings</span>
+  </button>
+
+  <footer>
+    <a href="http://github.com/lpatros" class="link-footer">created by @lpatros</a>
+  </footer>
+
 </body>
+
+<!-- <script src="./assets/js/bars.js"></script> -->
+<script src="./index.js"></script>
 <script src="assets/js/theme.js"></script>
-<script src="assets/js/clock.js"></script>
-<script src="assets/js/weather.js"></script>
+<script src="./assets/js/clock.js"></script>
+<script src="./assets/js/greeting.js"></script>
+<script src="./assets/js/weather.js"></script>
+<script src="./assets/js/shortcuts.js"></script>
 
 </html>

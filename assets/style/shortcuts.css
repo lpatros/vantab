@@ -1,0 +1,77 @@
+
+@keyframes show {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.shortcuts-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+    max-width: 480px;
+}
+
+.shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color-dark);
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out, color 0.3s ease;
+    animation: show 0.5s forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+body.light-mode .shortcut {
+    color: var(--text-color-light);
+}
+
+.shortcut:hover {
+    background-color: var(--shortcut-hover-bg-dark);
+}
+
+body.light-mode .shortcut:hover {
+    background-color: var(--shortcut-hover-bg-light);
+}
+
+.shortcut-icon-container {
+    background-color: var(--shortcut-icon-bg-dark);
+    border: 1px solid var(--shortcut-icon-border-dark);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+body.light-mode .shortcut-icon-container {
+    background-color: var(--shortcut-icon-bg-light);
+    border: 1px solid var(--shortcut-icon-border-light);
+}
+
+.shortcut-icon {
+    color: var(--shortcut-icon-color-dark);
+    width: 24px;
+    border-radius: 10px;
+}
+
+body.light-mode .shortcut-icon {
+    color: var(--shortcut-icon-color-light);
+}
+
+.shortcut-label {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+}

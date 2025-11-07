@@ -1,7 +1,16 @@
-const updateClock = () => {
+const clockContainer = document.querySelector('#clock-container');
+
+const timeElement = document.createElement('div');
+timeElement.id = 'time';
+clockContainer.appendChild(timeElement);
+
+const dateElement = document.createElement('div');
+dateElement.id = 'date';
+clockContainer.appendChild(dateElement);
+
+const setClock = () => {
+
   const now = new Date();
-  const timeElement = document.getElementById('time');
-  const dateElement = document.getElementById('date');
 
   // Formato: (HH:MM)
   const hours = String(now.getHours()).padStart(2, '0');
@@ -11,12 +20,38 @@ const updateClock = () => {
   // Formato: "quinta-feira, 29 de maio"
   const optionsDate = { weekday: 'long', day: 'numeric', month: 'long' };
   const formattedDate = now.toLocaleDateString('pt-BR', optionsDate);
-
-  dateElement.textContent = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1).replace(/\bde\b\s(\w)/, (match, p1) => `de ${p1.toUpperCase()}`);
+  dateElement.textContent = formattedDate;
 }
 
-// Atualiza o relógio a cada segundo
-setInterval(updateClock, 1000);
+let clockInterval;
+const verifyClockVisibility = () => {
+  
+  const showClock = localStorage.getItem('showClock');
 
-// Chamada inicial para exibir o relógio imediatamente
-updateClock();
+  clearInterval(clockInterval);
+  
+  if (showClock === 'false') {
+    clockContainer.style.display = 'none';
+    return;
+  }
+  
+  setClock();
+  clockInterval = setInterval(setClock, 1000);
+  clockContainer.removeAttribute('style');
+
+  if (showClock === null) {
+    localStorage.setItem('showClock', 'true');
+  }
+}
+
+const clockInput = document.querySelector('#settingsClock');
+
+clockInput.addEventListener('change', () => {
+  const isChecked = clockInput.checked;
+
+  localStorage.setItem('showClock', isChecked);
+
+  verifyClockVisibility();
+});
+
+verifyClockVisibility();

@@ -1,0 +1,18 @@
+
+#clock-container {
+    text-align: center;
+    opacity: 0;
+    animation: slideFadeIn 2s forwards;
+}
+
+#time {
+    font-size: 5rem;
+    font-weight: 300;
+    line-height: 1;
+}
+
+#date {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 5px;
+}

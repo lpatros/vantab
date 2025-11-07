@@ -1,0 +1,21 @@
+
+#weather {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 5px 0;
+    opacity: 0;
+    animation: slideFadeIn 2s forwards;
+}
+
+#weather .weather-icon {
+    font-size: 1.8rem;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+#weather .temp-highlight {
+    font-size: 1.8rem;
+    font-weight: 500;
+    vertical-align: middle;
+}
