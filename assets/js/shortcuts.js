@@ -76,10 +76,83 @@ const renderShortcuts = () => {
     // Render settings manager
     if (linkManagerList) {
         linkManagerList.innerHTML = '';
+        
+        // Handle dragover on the container for the edges (top/bottom)
+        linkManagerList.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            const draggingItem = document.querySelector('.dragging');
+            if (!draggingItem) return;
+            
+            const items = [...linkManagerList.querySelectorAll('.link-item:not(.dragging)')];
+            if (items.length === 0) {
+                linkManagerList.appendChild(draggingItem);
+                return;
+            }
+
+            const firstItem = items[0];
+            const firstRect = firstItem.getBoundingClientRect();
+            if (e.clientY < firstRect.top + firstRect.height / 2) {
+                linkManagerList.insertBefore(draggingItem, firstItem);
+            }
+
+            const lastItem = items[items.length - 1];
+            const lastRect = lastItem.getBoundingClientRect();
+            if (e.clientY > lastRect.top + lastRect.height / 2) {
+                linkManagerList.appendChild(draggingItem);
+            }
+        });
+
         shortcuts.forEach((shortcut, index) => {
             const item = document.createElement('div');
             item.className = 'link-item';
+            item.draggable = true;
+            item.dataset.index = index;
             
+            // Drag events
+            item.addEventListener('dragstart', (e) => {
+                item.classList.add('dragging');
+                e.dataTransfer.setData('text/plain', index);
+                // Optional: set a drag image or ghost effect
+            });
+
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+                
+                // Save new order based on DOM
+                const items = [...linkManagerList.querySelectorAll('.link-item')];
+                const newOrder = items.map(el => {
+                    const originalIndex = parseInt(el.dataset.index);
+                    return shortcuts[originalIndex];
+                });
+                
+                // Only save if the order actually changed
+                if (JSON.stringify(newOrder) !== JSON.stringify(shortcuts)) {
+                    saveShortcuts(newOrder);
+                }
+            });
+
+            item.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                const draggingItem = document.querySelector('.dragging');
+                if (!draggingItem || draggingItem === item) return;
+
+                const rect = item.getBoundingClientRect();
+                const offset = e.clientY - rect.top;
+                
+                if (offset < rect.height / 2) {
+                    if (item.previousElementSibling !== draggingItem) {
+                        linkManagerList.insertBefore(draggingItem, item);
+                    }
+                } else {
+                    if (item.nextElementSibling !== draggingItem) {
+                        linkManagerList.insertBefore(draggingItem, item.nextElementSibling);
+                    }
+                }
+            });
+
+            const gripIcon = document.createElement('i');
+            gripIcon.className = 'fa-solid fa-grip-vertical';
+
             const text = document.createElement('span');
             text.textContent = shortcut.name;
             
@@ -125,6 +198,8 @@ const renderShortcuts = () => {
             
             actions.appendChild(editIcon);
             actions.appendChild(deleteIcon);
+            
+            item.appendChild(gripIcon);
             item.appendChild(text);
             item.appendChild(actions);
             linkManagerList.appendChild(item);
