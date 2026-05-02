@@ -1,7 +1,7 @@
 const presentationTextElement = document.querySelector('#greeting');
-const userName = localStorage.getItem('userName') || null;
 
 const setGreeting = () => {
+  const userName = localStorage.getItem('userName') || null;
   const now = new Date();
   const hour = now.getHours();
   let greeting = "Olá";
@@ -14,10 +14,28 @@ const setGreeting = () => {
     greeting = "Boa noite";
   }
   
-  // Exibir saudação com o nome do usuário, se houver
-  presentationTextElement.textContent = userName && `${greeting}, ${userName}` || `${greeting}`;
+  // Show greeting with user name if available
+  presentationTextElement.textContent = userName ? `${greeting}, ${userName}` : `${greeting}`;
+}
+
+const verifyGreetingVisibility = () => {
+  const showGreeting = localStorage.getItem('showGreeting') !== 'false';
+  presentationTextElement.style.display = showGreeting ? 'block' : 'none';
 }
 
 setGreeting();
+verifyGreetingVisibility();
 
-setInterval(setGreeting, 60000); // Atualiza a saudação a cada minuto
+setInterval(setGreeting, 60000); // Update greeting every minute
+
+window.addEventListener('settingsUpdated', (e) => {
+  if (e.detail === 'userName') {
+    setGreeting();
+  }
+});
+
+window.addEventListener('visibilityUpdated', (e) => {
+  if (e.detail === 'showGreeting') {
+    verifyGreetingVisibility();
+  }
+});

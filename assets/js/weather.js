@@ -1,34 +1,33 @@
 const presentationWeatherElement = document.querySelector('#weather');
 
-// Mapeia códigos de ícone do OpenWeatherMap para Font Awesome
+// Maps OpenWeatherMap icon codes to Font Awesome
 const getWeatherIcon = (iconCode) => {
   
   const iconMap = {
-    "01d": "fas fa-sun",                      // céu limpo dia
-    "01n": "fas fa-moon",                     // céu limpo noite
-    "02d": "fas fa-cloud-sun",                // poucas nuvens dia
-    "02n": "fas fa-cloud-moon",               // poucas nuvens noite
-    "03d": "fas fa-cloud",                    // nuvens dispersas dia
-    "03n": "fas fa-cloud",                    // nuvens dispersas noite
-    "04d": "fas fa-cloud",                    // nuvens quebradas dia (tambem poderia ser fa-cloud-meatball)
-    "04n": "fas fa-cloud-meatball",           // nuvens quebradas noite
-    "09d": "fas fa-cloud-showers-heavy",      // chuva de banho dia
-    "09n": "fas fa-cloud-showers-heavy",      // chuva de banho noite
-    "10d": "fas fa-cloud-sun-rain",           // chuva dia
-    "10n": "fas fa-cloud-moon-rain",          // chuva noite
-    "11d": "fas fa-bolt",                     // trovoada dia
-    "11n": "fas fa-bolt",                     // trovoada noite
-    "13d": "fas fa-snowflake",                // neve dia
-    "13n": "fas fa-snowflake",                // neve noite
-    "50d": "fas fa-smog",                     // névoa dia
-    "50n": "fas fa-smog",                     // névoa noite
+    "01d": "fas fa-sun",                      // clear sky day
+    "01n": "fas fa-moon",                     // clear sky night
+    "02d": "fas fa-cloud-sun",                // few clouds day
+    "02n": "fas fa-cloud-moon",               // few clouds night
+    "03d": "fas fa-cloud",                    // scattered clouds day
+    "03n": "fas fa-cloud",                    // scattered clouds night
+    "04d": "fas fa-cloud",                    // broken clouds day (could also be fa-cloud-meatball)
+    "04n": "fas fa-cloud-meatball",           // broken clouds night
+    "09d": "fas fa-cloud-showers-heavy",      // shower rain day
+    "09n": "fas fa-cloud-showers-heavy",      // shower rain night
+    "10d": "fas fa-cloud-sun-rain",           // rain day
+    "10n": "fas fa-cloud-moon-rain",          // rain night
+    "11d": "fas fa-bolt",                     // thunderstorm day
+    "11n": "fas fa-bolt",                     // thunderstorm night
+    "13d": "fas fa-snowflake",                // snow day
+    "13n": "fas fa-snowflake",                // snow night
+    "50d": "fas fa-smog",                     // mist day
+    "50n": "fas fa-smog",                     // mist night
   };
   
-  return iconMap[iconCode] || "fas fa-question-circle"; // Ícone padrão caso não encontre
+  return iconMap[iconCode] || "fas fa-question-circle"; // Standard icon if not found
 }
 
-const fetchWeather = async (apiKey) => {
-  const city = localStorage.getItem('city');
+const fetchWeather = async (apiKey, city) => {
   const units = localStorage.getItem('units') || 'metric';
   const lang = localStorage.getItem('lang') || "pt_br";
   
@@ -38,7 +37,7 @@ const fetchWeather = async (apiKey) => {
     const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`Erro HTTP: ${response.status}`);
+      throw new Error(`HTTP error: ${response.status}`);
     }
     
     const data = await response.json();
@@ -46,25 +45,26 @@ const fetchWeather = async (apiKey) => {
     return data;
     
   } catch (error) {
-    console.error("Falha ao buscar dados do tempo:", error);
+    console.error("Failed to fetch weather data:", error);
   }
 }
 
 const setWeather = async () => {
   
   const apiKey = localStorage.getItem('apiKey');
+  const city = localStorage.getItem('city');
   
-  if (!apiKey) {
-    console.error("Chave da API não fornecida.");
-    presentationWeatherElement.textContent = "Chave da API não fornecida.";
+  if (!apiKey || !city) {
+    console.error("API key or city not provided.");
+    presentationWeatherElement.textContent = "API key or city not provided.";
     return;
   }
   
-  const data = await fetchWeather(apiKey);
+  const data = await fetchWeather(apiKey, city);
   
   if (!data) {
-    console.error("Dados do tempo indisponíveis.");
-    presentationWeatherElement.textContent = "Dados do tempo indisponíveis.";
+    console.error("Weather data unavailable.");
+    presentationWeatherElement.textContent = "Weather data unavailable.";
     return;
   }
   
@@ -74,7 +74,7 @@ const setWeather = async () => {
   
   const weatherIconClass = getWeatherIcon(iconCode);
   
-  // Formata a primeira letra da descrição para maiúscula
+  // Format the first letter of the description to uppercase
   const formattedDescription = description.charAt(0).toUpperCase() + description.slice(1);
   
   presentationWeatherElement.innerHTML = `
@@ -85,4 +85,23 @@ const setWeather = async () => {
 
 setWeather();
 
-setInterval(fetchWeather, 600000); // Atualiza o tempo a cada 10 minutos (600000 ms)
+setInterval(setWeather, 600000); // Update weather every 10 minutes (600000 ms)
+
+window.addEventListener('settingsUpdated', (e) => {
+  if (['apiKey', 'city'].includes(e.detail)) {
+    setWeather();
+  }
+});
+
+const verifyWeatherVisibility = () => {
+  const showWeather = localStorage.getItem('showWeather') !== 'false';
+  presentationWeatherElement.style.display = showWeather ? 'block' : 'none';
+};
+
+verifyWeatherVisibility();
+
+window.addEventListener('visibilityUpdated', (e) => {
+  if (e.detail === 'showWeather') {
+    verifyWeatherVisibility();
+  }
+});

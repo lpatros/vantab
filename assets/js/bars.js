@@ -24,7 +24,7 @@ barsButton.addEventListener('click', () => {
   dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
 });
 
-// Fecha o menu se clicar fora
+// Close menu if clicked outside
 window.addEventListener('click', (e) => {
   if (!barsButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
     dropdownMenu.style.display = 'none';

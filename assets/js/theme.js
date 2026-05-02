@@ -3,12 +3,12 @@ const bodyElement = document.body;
 const toogle = document.querySelector("#toogle-theme");
 
 
-// Verifica se há um tema salvo no localStorage
+// Check if there is a saved theme in localStorage
 // if (currentTheme) {
 //   bodyElement.classList.add(currentTheme);
 // }
 
-// Se nao tiver, verifica a preferência do sistema operacional
+// If not, check the operating system preference
 // if (!currentTheme && window.matchMedia) {
 //   if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
 //     bodyElement.classList.add("dark-mode");
@@ -18,7 +18,7 @@ const toogle = document.querySelector("#toogle-theme");
 
 // toggleIcon()
 
-// Função para alternar entre os temas, chamando-a ao clicar no botão de tema
+// Function to switch between themes, calling it when clicking the theme button
 const switchTheme = () => {
 
   if (bodyElement.classList.contains("dark-mode")) {

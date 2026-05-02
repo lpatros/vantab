@@ -67,15 +67,136 @@
     <span class="settings-text">Settings</span>
   </button>
 
+  <div id="settingsDivContainer" style="display: none;">
+    <div id="settingsDiv">
+      <section id="settingsHeader">
+        <h2>Configurações</h2>
+        <button id="close-settings" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+      </section>
+
+      <div class="settings-scroll">
+        <!-- Configurações Gerais -->
+        <section class="settings-section">
+          <div class="settingsItemTittle collapsible-tittle">
+            <span>Geral</span>
+            <i class="fa-solid fa-chevron-up"></i>
+          </div>
+          <div class="collapsible-content">
+            <div class="settingsItem input-group">
+              <label for="settingsName">Nome</label>
+              <input type="text" id="settingsName" placeholder="Seu nome" class="settings-input">
+            </div>
+            
+            <div class="settingsItem input-group">
+              <label for="settingsApiKey">API Key (OpenWeatherMap)</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="settingsApiKey" placeholder="Sua API Key" class="settings-input">
+                <button type="button" id="toggleApiKeyVisibility" class="toggle-password-btn" title="Mostrar/Ocultar">
+                  <i class="fa-solid fa-eye" id="eyeIcon"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="settingsItem input-group">
+              <label for="settingsCity">Cidade</label>
+              <input type="text" id="settingsCity" placeholder="Ex: São Paulo" class="settings-input">
+            </div>
+          </div>
+        </section>
+
+        <!-- Visibilidade -->
+        <section class="settings-section">
+          <div class="settingsItemTittle collapsible-tittle">
+            <span>Visibilidade</span>
+            <i class="fa-solid fa-chevron-up"></i>
+          </div>
+          
+          <div class="collapsible-content">
+            <div class="settingsItem-group">
+              <div class="settingsItem">
+                <span class="settingsItemText">Relógio</span>
+                <label class="switch">
+                  <input type="checkbox" id="settingsClock">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="settingsItem sub-item" id="settingsDateContainer">
+                <span class="settingsItemText">Data</span>
+                <label class="switch">
+                  <input type="checkbox" id="settingsDate">
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="settingsItem">
+              <span class="settingsItemText">Saudação</span>
+              <label class="switch">
+                <input type="checkbox" id="settingsGreeting">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="settingsItem">
+              <span class="settingsItemText">Clima</span>
+              <label class="switch">
+                <input type="checkbox" id="settingsWeather">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="settingsItem">
+              <span class="settingsItemText">Links Rápidos</span>
+              <label class="switch">
+                <input type="checkbox" id="settingsLinks">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Links (CRUD) -->
+        <section class="settings-section">
+          <div class="settingsItemTittle collapsible-tittle">
+            <span>Links Rápidos</span>
+            <i class="fa-solid fa-chevron-up"></i>
+          </div>
+          <div class="collapsible-content">
+            <div class="settingsItem link-manager-container">
+              <div id="link-form-container" class="link-form-container" style="display: none;">
+                <div class="link-form-header">
+                  <span id="link-form-title">Novo Link</span>
+                  <button type="button" id="close-link-form-btn" class="close-form-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form id="link-manager-form" class="link-manager-form">
+                  <input type="text" id="linkName" placeholder="Nome (Ex: GitHub)" class="settings-input" required>
+                  <input type="text" id="linkUrl" placeholder="URL (Ex: github.com)" class="settings-input" required>
+                  <button type="submit" id="add-link-btn" class="settings-btn">Adicionar</button>
+                </form>
+              </div>
+              
+              <button type="button" id="toggle-add-link-form-btn" class="settings-btn toggle-add-btn">
+                <i class="fa-solid fa-plus"></i> Adicionar Novo
+              </button>
+              
+              <div id="link-manager-list" class="link-manager-list"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
   <footer>
-    <a href="http://github.com/lpatros" class="link-footer">created by @lpatros</a>
+    <a href="http://github.com/lpatros" class="link-footer">created by <span id="footer-user-name">@lpatros</span></a>
   </footer>
 
 </body>
 
 <!-- <script src="./assets/js/bars.js"></script> -->
+<!-- <script src="assets/js/theme.js"></script> -->
 <script src="./index.js"></script>
-<script src="assets/js/theme.js"></script>
 <script src="./assets/js/clock.js"></script>
 <script src="./assets/js/greeting.js"></script>
 <script src="./assets/js/weather.js"></script>
