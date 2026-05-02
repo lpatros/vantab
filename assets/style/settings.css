@@ -25,6 +25,11 @@ body.light-mode #settings-button {
   opacity: 1;
 }
 
+#settings-button.always-visible {
+  opacity: 1 !important;
+  animation: none !important;
+}
+
 /* settings panel */
 
 @keyframes slideInRight {

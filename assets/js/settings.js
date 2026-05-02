@@ -72,6 +72,7 @@ const togglesToSync = [
     { id: 'settingsGreeting', storageKey: 'showGreeting', default: 'true' },
     { id: 'settingsWeather', storageKey: 'showWeather', default: 'true' },
     { id: 'settingsLinks', storageKey: 'showLinks', default: 'true' },
+    { id: 'settingsShowSettingsBtn', storageKey: 'showSettingsBtn', default: 'true' },
 ];
 
 togglesToSync.forEach(toggle => {
@@ -110,6 +111,24 @@ if (settingsClockEl) {
     settingsClockEl.addEventListener('change', verifyDateToggleState);
     verifyDateToggleState();
 }
+
+const verifySettingsBtnVisibility = () => {
+    if (!settingsButton) return;
+    const show = localStorage.getItem('showSettingsBtn') !== 'false';
+    if (show) {
+        settingsButton.classList.add('always-visible');
+    } else {
+        settingsButton.classList.remove('always-visible');
+    }
+};
+
+verifySettingsBtnVisibility();
+
+window.addEventListener('visibilityUpdated', (e) => {
+    if (e.detail === 'showSettingsBtn') {
+        verifySettingsBtnVisibility();
+    }
+});
 
 // Toggle API Key visibility
 const toggleApiKeyVisibility = document.querySelector('#toggleApiKeyVisibility');
