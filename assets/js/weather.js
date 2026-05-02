@@ -56,7 +56,7 @@ const setWeather = async () => {
   
   if (!apiKey || !city) {
     console.error("API key or city not provided.");
-    presentationWeatherElement.textContent = "API key or city not provided.";
+    presentationWeatherElement.textContent = typeof t === 'function' ? t('weather_no_api') : "API key or city not provided.";
     return;
   }
   
@@ -64,7 +64,7 @@ const setWeather = async () => {
   
   if (!data) {
     console.error("Weather data unavailable.");
-    presentationWeatherElement.textContent = "Weather data unavailable.";
+    presentationWeatherElement.textContent = typeof t === 'function' ? t('weather_unavailable') : "Weather data unavailable.";
     return;
   }
   
@@ -78,7 +78,7 @@ const setWeather = async () => {
   const formattedDescription = description.charAt(0).toUpperCase() + description.slice(1);
   
   const lang = localStorage.getItem('lang') || "pt_br";
-  const currentlyText = lang === 'en' ? 'Currently it is' : 'Atualmente faz';
+  const currentlyText = typeof t === 'function' ? t('weather_currently') : (lang === 'en' ? 'Currently it is' : 'Atualmente faz');
 
   presentationWeatherElement.innerHTML = `
   ${formattedDescription}. ${currentlyText} ${temperature}°<br>
@@ -95,6 +95,8 @@ window.addEventListener('settingsUpdated', (e) => {
     setWeather();
   }
 });
+
+window.addEventListener('languageChanged', setWeather);
 
 const verifyWeatherVisibility = () => {
   const showWeather = localStorage.getItem('showWeather') !== 'false';

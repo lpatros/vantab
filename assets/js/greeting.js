@@ -4,19 +4,21 @@ const setGreeting = () => {
   const userName = localStorage.getItem('userName') || null;
   const now = new Date();
   const hour = now.getHours();
-  let greeting = "Olá";
+  let greeting = t("greeting_default");
   
   if (hour >= 5 && hour < 12) {
-    greeting = "Bom dia";
+    greeting = t("greeting_morning");
   } else if (hour >= 12 && hour < 18) {
-    greeting = "Boa tarde";
+    greeting = t("greeting_afternoon");
   } else {
-    greeting = "Boa noite";
+    greeting = t("greeting_evening");
   }
   
   // Show greeting with user name if available
   presentationTextElement.textContent = userName ? `${greeting}, ${userName}` : `${greeting}`;
 }
+
+window.addEventListener('languageChanged', setGreeting);
 
 const verifyGreetingVisibility = () => {
   const showGreeting = localStorage.getItem('showGreeting') !== 'false';

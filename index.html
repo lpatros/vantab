@@ -65,13 +65,13 @@
 
   <button id="settings-button">
     <i class="fa-solid fa-gear"></i>
-    <span class="settings-text">Settings</span>
+    <span class="settings-text" data-i18n="settings_btn">Settings</span>
   </button>
 
   <div id="settingsDivContainer" style="display: none;">
     <div id="settingsDiv">
       <section id="settingsHeader">
-        <h2>Configurações</h2>
+        <h2 data-i18n="settings_title">Configurações</h2>
         <button id="close-settings" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
       </section>
 
@@ -79,19 +79,19 @@
         <!-- Configurações Gerais -->
         <section class="settings-section">
           <div class="settingsItemTittle collapsible-tittle">
-            <span>Geral</span>
+            <span data-i18n="settings_general">Geral</span>
             <i class="fa-solid fa-chevron-up"></i>
           </div>
           <div class="collapsible-content">
             <div class="settingsItem input-group">
-              <label for="settingsName">Nome</label>
-              <input type="text" id="settingsName" placeholder="Seu nome" class="settings-input">
+              <label for="settingsName" data-i18n="label_name">Nome</label>
+              <input type="text" id="settingsName" data-i18n-placeholder="placeholder_name" placeholder="Seu nome" class="settings-input">
             </div>
             
             <div class="settingsItem input-group">
-              <label for="settingsApiKey">API Key (OpenWeatherMap)</label>
+              <label for="settingsApiKey" data-i18n="label_apikey">API Key (OpenWeatherMap)</label>
               <div class="password-input-wrapper">
-                <input type="password" id="settingsApiKey" placeholder="Sua API Key" class="settings-input">
+                <input type="password" id="settingsApiKey" data-i18n-placeholder="placeholder_apikey" placeholder="Sua API Key" class="settings-input">
                 <button type="button" id="toggleApiKeyVisibility" class="toggle-password-btn" title="Mostrar/Ocultar">
                   <i class="fa-solid fa-eye" id="eyeIcon"></i>
                 </button>
@@ -99,12 +99,12 @@
             </div>
             
             <div class="settingsItem input-group">
-              <label for="settingsCity">Cidade</label>
-              <input type="text" id="settingsCity" placeholder="Ex: São Paulo" class="settings-input">
+              <label for="settingsCity" data-i18n="label_city">Cidade</label>
+              <input type="text" id="settingsCity" data-i18n-placeholder="placeholder_city" placeholder="Ex: São Paulo" class="settings-input">
             </div>
 
             <div class="settingsItem input-group">
-              <label>Unidade</label>
+              <label data-i18n="label_unit">Unidade</label>
               <div class="custom-select" id="settingsUnits" data-storage-key="units">
                 <div class="select-trigger">
                   <span class="selected-text">Celsius (°C)</span>
@@ -118,7 +118,7 @@
             </div>
 
             <div class="settingsItem input-group">
-              <label>Idioma</label>
+              <label data-i18n="label_lang">Idioma</label>
               <div class="custom-select" id="settingsLang" data-storage-key="lang">
                 <div class="select-trigger">
                   <span class="selected-text">Português</span>
@@ -136,14 +136,14 @@
         <!-- Visibilidade -->
         <section class="settings-section">
           <div class="settingsItemTittle collapsible-tittle">
-            <span>Visibilidade</span>
+            <span data-i18n="settings_visibility">Visibilidade</span>
             <i class="fa-solid fa-chevron-up"></i>
           </div>
           
           <div class="collapsible-content">
             <div class="settingsItem-group">
               <div class="settingsItem">
-                <span class="settingsItemText">Relógio</span>
+                <span class="settingsItemText" data-i18n="visibility_clock">Relógio</span>
                 <label class="switch">
                   <input type="checkbox" id="settingsClock">
                   <span class="slider"></span>
@@ -151,7 +151,7 @@
               </div>
 
               <div class="settingsItem sub-item" id="settingsDateContainer">
-                <span class="settingsItemText">Data</span>
+                <span class="settingsItemText" data-i18n="visibility_date">Data</span>
                 <label class="switch">
                   <input type="checkbox" id="settingsDate">
                   <span class="slider"></span>
@@ -160,7 +160,7 @@
             </div>
 
             <div class="settingsItem">
-              <span class="settingsItemText">Saudação</span>
+              <span class="settingsItemText" data-i18n="visibility_greeting">Saudação</span>
               <label class="switch">
                 <input type="checkbox" id="settingsGreeting">
                 <span class="slider"></span>
@@ -168,7 +168,7 @@
             </div>
 
             <div class="settingsItem">
-              <span class="settingsItemText">Clima</span>
+              <span class="settingsItemText" data-i18n="visibility_weather">Clima</span>
               <label class="switch">
                 <input type="checkbox" id="settingsWeather">
                 <span class="slider"></span>
@@ -176,7 +176,7 @@
             </div>
 
             <div class="settingsItem">
-              <span class="settingsItemText">Links Rápidos</span>
+              <span class="settingsItemText" data-i18n="visibility_links">Links Rápidos</span>
               <label class="switch">
                 <input type="checkbox" id="settingsLinks">
                 <span class="slider"></span>
@@ -184,7 +184,7 @@
             </div>
 
             <div class="settingsItem">
-              <span class="settingsItemText">Botão Settings</span>
+              <span class="settingsItemText" data-i18n="visibility_settings_btn">Botão Settings</span>
               <label class="switch">
                 <input type="checkbox" id="settingsShowSettingsBtn">
                 <span class="slider"></span>
@@ -196,25 +196,25 @@
         <!-- Links (CRUD) -->
         <section class="settings-section">
           <div class="settingsItemTittle collapsible-tittle">
-            <span>Links Rápidos</span>
+            <span data-i18n="settings_links">Links Rápidos</span>
             <i class="fa-solid fa-chevron-up"></i>
           </div>
           <div class="collapsible-content">
             <div class="settingsItem link-manager-container">
               <div id="link-form-container" class="link-form-container" style="display: none;">
                 <div class="link-form-header">
-                  <span id="link-form-title">Novo Link</span>
+                  <span id="link-form-title" data-i18n="link_new_title">Novo Link</span>
                   <button type="button" id="close-link-form-btn" class="close-form-btn"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <form id="link-manager-form" class="link-manager-form">
-                  <input type="text" id="linkName" placeholder="Nome (Ex: GitHub)" class="settings-input" required>
-                  <input type="text" id="linkUrl" placeholder="URL (Ex: github.com)" class="settings-input" required>
-                  <button type="submit" id="add-link-btn" class="settings-btn">Adicionar</button>
+                  <input type="text" id="linkName" data-i18n-placeholder="placeholder_link_name" placeholder="Nome (Ex: GitHub)" class="settings-input" required>
+                  <input type="text" id="linkUrl" data-i18n-placeholder="placeholder_link_url" placeholder="URL (Ex: github.com)" class="settings-input" required>
+                  <button type="submit" id="add-link-btn" class="settings-btn" data-i18n="btn_add">Adicionar</button>
                 </form>
               </div>
               
               <button type="button" id="toggle-add-link-form-btn" class="settings-btn toggle-add-btn">
-                <i class="fa-solid fa-plus"></i> Adicionar Novo
+                <i class="fa-solid fa-plus"></i> <span data-i18n="btn_add_new">Adicionar Novo</span>
               </button>
               
               <div id="link-manager-list" class="link-manager-list"></div>
@@ -226,13 +226,14 @@
   </div>
 
   <footer>
-    <a href="http://github.com/lpatros" class="link-footer">created by <span id="footer-user-name">@lpatros</span></a>
+    <a href="http://github.com/lpatros" class="link-footer"><span data-i18n="footer_created_by">created by </span><span id="footer-user-name">@lpatros</span></a>
   </footer>
 
 </body>
 
 <!-- <script src="./assets/js/bars.js"></script> -->
 <!-- <script src="assets/js/theme.js"></script> -->
+<script src="./assets/js/lang.js"></script>
 <script src="./assets/js/clock.js"></script>
 <script src="./assets/js/greeting.js"></script>
 <script src="./assets/js/weather.js"></script>

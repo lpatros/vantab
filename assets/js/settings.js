@@ -323,7 +323,7 @@ const renderLinkManager = () => {
         
         const editIcon = document.createElement('i');
         editIcon.className = 'fa-solid fa-pen';
-        editIcon.title = 'Editar';
+        editIcon.title = typeof t === 'function' ? t('icon_edit') : 'Editar';
         editIcon.addEventListener('click', () => {
             const nameInput = document.querySelector('#linkName');
             const urlInput = document.querySelector('#linkUrl');
@@ -331,18 +331,18 @@ const renderLinkManager = () => {
             
             if (linkFormContainer) linkFormContainer.style.display = 'block';
             if (toggleAddLinkFormBtn) toggleAddLinkFormBtn.style.display = 'none';
-            if (linkFormTitle) linkFormTitle.textContent = 'Atualizar Link';
+            if (linkFormTitle) linkFormTitle.textContent = typeof t === 'function' ? t('link_edit_title') : 'Atualizar Link';
             
             nameInput.value = shortcut.name;
             urlInput.value = shortcut.url;
             currentEditIndex = index;
-            if (addBtn) addBtn.textContent = 'Atualizar';
+            if (addBtn) addBtn.textContent = typeof t === 'function' ? t('btn_update') : 'Atualizar';
             nameInput.focus();
         });
 
         const deleteIcon = document.createElement('i');
         deleteIcon.className = 'fa-solid fa-trash';
-        deleteIcon.title = 'Excluir';
+        deleteIcon.title = typeof t === 'function' ? t('icon_delete') : 'Excluir';
         deleteIcon.addEventListener('click', () => {
             const newShortcuts = shortcuts.filter((_, i) => i !== index);
             if (typeof saveShortcuts === 'function') saveShortcuts(newShortcuts);
@@ -353,7 +353,7 @@ const renderLinkManager = () => {
                 document.querySelector('#linkName').value = '';
                 document.querySelector('#linkUrl').value = '';
                 const addBtn = document.querySelector('#add-link-btn');
-                if (addBtn) addBtn.textContent = 'Adicionar';
+                if (addBtn) addBtn.textContent = typeof t === 'function' ? t('btn_add') : 'Adicionar';
             } else if (currentEditIndex !== null && index < currentEditIndex) {
                 currentEditIndex--;
             }
@@ -376,8 +376,8 @@ if (toggleAddLinkFormBtn) {
         document.querySelector('#linkName').value = '';
         document.querySelector('#linkUrl').value = '';
         const addBtn = document.querySelector('#add-link-btn');
-        if (addBtn) addBtn.textContent = 'Adicionar';
-        if (linkFormTitle) linkFormTitle.textContent = 'Novo Link';
+        if (addBtn) addBtn.textContent = typeof t === 'function' ? t('btn_add') : 'Adicionar';
+        if (linkFormTitle) linkFormTitle.textContent = typeof t === 'function' ? t('link_new_title') : 'Novo Link';
         currentEditIndex = null;
         document.querySelector('#linkName').focus();
     });
@@ -412,7 +412,7 @@ if (linkManagerForm) {
                 shortcuts[currentEditIndex] = { name, url };
                 currentEditIndex = null;
                 const addBtn = document.querySelector('#add-link-btn');
-                if (addBtn) addBtn.textContent = 'Adicionar';
+                if (addBtn) addBtn.textContent = typeof t === 'function' ? t('btn_add') : 'Adicionar';
             } else {
                 shortcuts.push({ name, url });
             }
@@ -436,5 +436,10 @@ renderLinkManager();
 
 // Listen for shortcut updates to re-render the manager
 window.addEventListener('shortcutsUpdated', () => {
+    renderLinkManager();
+});
+
+// Re-render when language changes to update dynamic titles
+window.addEventListener('languageChanged', () => {
     renderLinkManager();
 });

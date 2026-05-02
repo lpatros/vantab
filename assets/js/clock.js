@@ -18,9 +18,13 @@ const setClock = () => {
 
   // Format: "quinta-feira, 29 de maio"
   const optionsDate = { weekday: 'long', day: 'numeric', month: 'long' };
-  const formattedDate = now.toLocaleDateString('pt-BR', optionsDate);
+  const lang = typeof getLang === 'function' ? getLang() : 'pt_br';
+  const locale = lang === 'en' ? 'en-US' : 'pt-BR';
+  const formattedDate = now.toLocaleDateString(locale, optionsDate);
   dateElement.textContent = formattedDate;
 }
+
+window.addEventListener('languageChanged', setClock);
 
 let clockInterval;
 
