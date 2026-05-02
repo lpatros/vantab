@@ -452,6 +452,28 @@ input:checked + .slider:before {
   color: #ff4444;
 }
 
+.link-item.dragging {
+  opacity: 0.2;
+  border: 1px dashed #555;
+  background-color: transparent !important;
+  transform: none !important;
+}
+
+.link-item.dragging * {
+  pointer-events: none;
+}
+
+.fa-grip-vertical {
+  cursor: grab;
+  color: #666;
+  padding: 4px;
+  margin-right: 8px;
+}
+
+.fa-grip-vertical:active {
+  cursor: grabbing;
+}
+
 .link-manager-form {
   display: flex;
   flex-direction: column;
