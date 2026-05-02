@@ -22,8 +22,8 @@
   --shortcut-icon-color-dark: #e8eaed;
   --footer-text-color-dark: #9aa0a6;
 
-  --slider-color-disable-black: rgb(100, 100, 100);
-  --slider-color-active-green: rgb(0, 190, 0);;
+  --slider-color-disable: #9aa0a6;
+  --slider-color-active: #007bff;
 }
 
 * {

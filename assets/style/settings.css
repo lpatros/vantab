@@ -129,7 +129,6 @@ div#settingsDiv .settingsItem {
 }
 
 div#settingsDiv .settingsItem:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   background-color: #4a4a4a;
 }
@@ -172,8 +171,8 @@ div#settingsDiv .settingsItem:hover {
 .switch {
   position: relative;
   display: inline-block;
-  width: 54px;
-  height: 30px;
+  width: 50px;
+  height: 26px;
 }
 
 .switch input {
@@ -189,9 +188,10 @@ div#settingsDiv .settingsItem:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--slider-color-disable-black);
-  transition: .4s;
+  background-color: var(--slider-color-disable);
+  transition: 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   border-radius: 34px;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .slider:before {
@@ -199,19 +199,21 @@ div#settingsDiv .settingsItem:hover {
   content: "";
   height: 20px;
   width: 20px;
-  left: 5px;
-  bottom: 5px;
+  left: 3px;
+  bottom: 3px;
   background-color: white;
-  transition: .4s;
+  transition: 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
   border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 input:checked + .slider {
-  background-color: var(--slider-color-active-green);
+  background-color: var(--slider-color-active);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 input:checked + .slider:before {
-  transform: translateX(26px);
+  transform: translateX(24px);
 }
 
 /* Novos estilos para configurações */
@@ -259,6 +261,105 @@ input:checked + .slider:before {
 .settings-input:focus {
   background: rgba(255, 255, 255, 0.1);
   border-color: #555;
+}
+
+.custom-select {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+.select-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color-dark);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-trigger:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.custom-select.open .select-trigger {
+  border-color: #4da6ff;
+  box-shadow: 0 0 0 2px rgba(77, 166, 255, 0.2);
+}
+
+.custom-select.open {
+  z-index: 1002; /* Ensure open dropdown is on top within its container */
+}
+
+.settings-section {
+  position: relative;
+  transition: z-index 0.3s;
+}
+
+.settings-section.has-open-dropdown {
+  z-index: 1010 !important; /* Lift the entire section containing an open dropdown */
+}
+
+.select-trigger i {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.custom-select.open .select-trigger i {
+  transform: rotate(180deg);
+  color: #4da6ff;
+}
+
+.select-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: rgba(20, 20, 20, 0.98); /* Darker and more opaque */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1002;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.custom-select.open .select-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.select-option {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text-color-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-option:hover {
+  background: rgba(77, 166, 255, 0.2);
+  color: #4da6ff;
+}
+
+.select-option.selected {
+  background: rgba(77, 166, 255, 0.2);
+  color: #4da6ff;
+  font-weight: 600;
 }
 
 .settings-btn {
@@ -484,13 +585,14 @@ input:checked + .slider:before {
 .collapsible-content {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible; /* Allow dropdowns to pop out */
   transition: max-height 0.3s ease, opacity 0.3s ease;
-  max-height: 500px;
+  max-height: 2000px; /* Increased to accommodate content + dropdowns */
   opacity: 1;
 }
 
 .collapsible-content.collapsed {
   max-height: 0;
   opacity: 0;
+  overflow: hidden; /* Clip content when collapsed */
 }

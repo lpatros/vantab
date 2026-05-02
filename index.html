@@ -102,6 +102,34 @@
               <label for="settingsCity">Cidade</label>
               <input type="text" id="settingsCity" placeholder="Ex: São Paulo" class="settings-input">
             </div>
+
+            <div class="settingsItem input-group">
+              <label>Unidade</label>
+              <div class="custom-select" id="settingsUnits" data-storage-key="units">
+                <div class="select-trigger">
+                  <span class="selected-text">Celsius (°C)</span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="select-options">
+                  <div class="select-option" data-value="metric">Celsius (°C)</div>
+                  <div class="select-option" data-value="imperial">Fahrenheit (°F)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settingsItem input-group">
+              <label>Idioma</label>
+              <div class="custom-select" id="settingsLang" data-storage-key="lang">
+                <div class="select-trigger">
+                  <span class="selected-text">Português</span>
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="select-options">
+                  <div class="select-option" data-value="pt_br">Português</div>
+                  <div class="select-option" data-value="en">English</div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

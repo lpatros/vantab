@@ -65,6 +65,77 @@ inputsToSync.forEach(input => {
     }
 });
 
+// Custom Dropdowns Logic
+document.querySelectorAll('.custom-select').forEach(dropdown => {
+    const trigger = dropdown.querySelector('.select-trigger');
+    const options = dropdown.querySelectorAll('.select-option');
+    const selectedText = dropdown.querySelector('.selected-text');
+    const storageKey = dropdown.dataset.storageKey;
+
+    // Load initial value
+    const storedValue = localStorage.getItem(storageKey);
+    if (storedValue) {
+        const matchingOption = Array.from(options).find(opt => opt.dataset.value === storedValue);
+        if (matchingOption) {
+            selectedText.textContent = matchingOption.textContent;
+            options.forEach(opt => opt.classList.remove('selected'));
+            matchingOption.classList.add('selected');
+        }
+    }
+
+    // Toggle dropdown
+    trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        const isOpen = dropdown.classList.contains('open');
+        const section = dropdown.closest('.settings-section');
+        
+        // Close other dropdowns and remove section classes
+        document.querySelectorAll('.custom-select').forEach(other => {
+            other.classList.remove('open');
+        });
+        document.querySelectorAll('.settings-section').forEach(sec => {
+            sec.classList.remove('has-open-dropdown');
+        });
+        
+        if (!isOpen) {
+            dropdown.classList.add('open');
+            if (section) section.classList.add('has-open-dropdown');
+        }
+    });
+
+    // Option selection
+    options.forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const value = option.dataset.value;
+            const text = option.textContent;
+
+            selectedText.textContent = text;
+            localStorage.setItem(storageKey, value);
+            
+            options.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            
+            dropdown.classList.remove('open');
+            const section = dropdown.closest('.settings-section');
+            if (section) section.classList.remove('has-open-dropdown');
+            
+            window.dispatchEvent(new CustomEvent('settingsUpdated', { detail: storageKey }));
+        });
+    });
+});
+
+// Close custom dropdowns when clicking outside
+document.addEventListener('click', () => {
+    document.querySelectorAll('.custom-select').forEach(dropdown => {
+        dropdown.classList.remove('open');
+    });
+    document.querySelectorAll('.settings-section').forEach(section => {
+        section.classList.remove('has-open-dropdown');
+    });
+});
+
 // Toggles visibility
 const togglesToSync = [
     { id: 'settingsClock', storageKey: 'showClock', default: 'true' },

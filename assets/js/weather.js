@@ -77,8 +77,11 @@ const setWeather = async () => {
   // Format the first letter of the description to uppercase
   const formattedDescription = description.charAt(0).toUpperCase() + description.slice(1);
   
+  const lang = localStorage.getItem('lang') || "pt_br";
+  const currentlyText = lang === 'en' ? 'Currently it is' : 'Atualmente faz';
+
   presentationWeatherElement.innerHTML = `
-  ${formattedDescription}. Atualmente faz ${temperature}°<br>
+  ${formattedDescription}. ${currentlyText} ${temperature}°<br>
   <i class="weather-icon ${weatherIconClass}"></i><span class="temp-highlight">${temperature}°</span>
   `;
 }
@@ -88,7 +91,7 @@ setWeather();
 setInterval(setWeather, 600000); // Update weather every 10 minutes (600000 ms)
 
 window.addEventListener('settingsUpdated', (e) => {
-  if (['apiKey', 'city'].includes(e.detail)) {
+  if (['apiKey', 'city', 'units', 'lang'].includes(e.detail)) {
     setWeather();
   }
 });
