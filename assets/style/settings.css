@@ -109,9 +109,16 @@ section#settingsHeader h2 {
 }
 
 div#settingsDiv .settingsItemTittle {
-  display: block;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px;
   margin: 30px 15px 0;
   color: rgba(255, 255, 255, 0.50);
+}
+
+div#settingsDiv .settingsItemTittle span {
+  flex-grow: 1;
 }
 
 div#settingsDiv .settingsItem {
@@ -301,6 +308,34 @@ input:checked + .slider:before {
 .settings-section {
   position: relative;
   transition: z-index 0.3s;
+}
+
+.settings-section.dragging {
+  opacity: 0.3;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  transform: scale(0.98);
+}
+
+.settings-section.dragging * {
+  pointer-events: none;
+}
+
+.section-drag-handle {
+  cursor: grab;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 4px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.section-drag-handle:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.section-drag-handle:active {
+  cursor: grabbing;
 }
 
 .settings-section.has-open-dropdown {
@@ -559,11 +594,11 @@ input:checked + .slider:before {
 /* Collapsibles */
 .collapsible-tittle {
   cursor: pointer;
-  display: flex;
-  justify-content: space-between;
+  display: flex !important;
   align-items: center;
+  gap: 12px;
   user-select: none;
-  padding: 5px 0;
+  padding: 8px 0;
   margin-top: 20px;
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
@@ -571,6 +606,14 @@ input:checked + .slider:before {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: color 0.2s;
+}
+
+.collapsible-tittle span {
+  flex-grow: 1;
+}
+
+.collapsible-tittle i {
+  flex-shrink: 0;
 }
 
 .collapsible-tittle:hover {

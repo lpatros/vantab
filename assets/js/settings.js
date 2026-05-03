@@ -27,36 +27,126 @@ if (settingsDivContainer) {
 
 // Collapsible logic (accordions)
 document.querySelectorAll('.collapsible-tittle').forEach(title => {
-    const section = title.dataset.section;
+    const parentSection = title.closest('.settings-section');
+    const section = parentSection ? parentSection.dataset.section : null;
     const content = title.nextElementSibling;
-    const icon = title.querySelector('i');
+    const icon = title.querySelector('.fa-chevron-up, .fa-chevron-down');
 
     // Initialize from localStorage
     if (section) {
         const isCollapsed = localStorage.getItem(`section_collapsed_${section}`) === 'true';
         if (isCollapsed) {
             content.classList.add('collapsed');
-            icon.classList.remove('fa-chevron-up');
-            icon.classList.add('fa-chevron-down');
+            if (icon) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
         }
     }
 
-    title.addEventListener('click', () => {
+    title.addEventListener('click', (e) => {
+        // Don't toggle if clicking the drag handle
+        if (e.target.closest('.section-drag-handle')) return;
+
         content.classList.toggle('collapsed');
         
         const currentlyCollapsed = content.classList.contains('collapsed');
         
-        if (currentlyCollapsed) {
-            icon.classList.remove('fa-chevron-up');
-            icon.classList.add('fa-chevron-down');
-        } else {
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
+        if (icon) {
+            if (currentlyCollapsed) {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
         }
 
         // Save to localStorage
         if (section) {
             localStorage.setItem(`section_collapsed_${section}`, currentlyCollapsed);
+        }
+    });
+});
+
+// Settings Section Drag and Drop
+const settingsScroll = document.querySelector('.settings-scroll');
+const settingsSections = document.querySelectorAll('.settings-section');
+
+const saveSectionsOrder = () => {
+    const order = [...document.querySelectorAll('.settings-section')].map(s => s.dataset.section);
+    localStorage.setItem('settings_sections_order', JSON.stringify(order));
+};
+
+const loadSectionsOrder = () => {
+    const orderStr = localStorage.getItem('settings_sections_order');
+    if (!orderStr || !settingsScroll) return;
+
+    try {
+        const order = JSON.parse(orderStr);
+        order.forEach(sectionId => {
+            const section = settingsScroll.querySelector(`.settings-section[data-section="${sectionId}"]`);
+            if (section) {
+                settingsScroll.appendChild(section);
+            }
+        });
+    } catch (e) {
+        console.error("Error loading settings sections order", e);
+    }
+};
+
+loadSectionsOrder();
+
+settingsSections.forEach(section => {
+    const handle = section.querySelector('.section-drag-handle');
+    
+    if (handle) {
+        handle.addEventListener('mousedown', () => {
+            section.setAttribute('draggable', 'true');
+        });
+        
+        handle.addEventListener('mouseup', () => {
+            section.setAttribute('draggable', 'false');
+        });
+
+        // For touch devices if needed
+        handle.addEventListener('touchstart', () => {
+            section.setAttribute('draggable', 'true');
+        }, { passive: true });
+    }
+
+    section.addEventListener('dragstart', (e) => {
+        // Double check if we are allowed to drag
+        if (section.getAttribute('draggable') !== 'true') {
+            e.preventDefault();
+            return;
+        }
+        section.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', section.dataset.section);
+    });
+
+    section.addEventListener('dragend', () => {
+        section.classList.remove('dragging');
+        section.setAttribute('draggable', 'false');
+        saveSectionsOrder();
+    });
+
+    section.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const draggingItem = document.querySelector('.settings-section.dragging');
+        if (!draggingItem || draggingItem === section) return;
+
+        const rect = section.getBoundingClientRect();
+        const offset = e.clientY - rect.top;
+        
+        if (offset < rect.height / 2) {
+            if (section.previousElementSibling !== draggingItem) {
+                settingsScroll.insertBefore(draggingItem, section);
+            }
+        } else {
+            if (section.nextElementSibling !== draggingItem) {
+                settingsScroll.insertBefore(draggingItem, section.nextElementSibling);
+            }
         }
     });
 });
