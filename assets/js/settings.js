@@ -27,18 +27,36 @@ if (settingsDivContainer) {
 
 // Collapsible logic (accordions)
 document.querySelectorAll('.collapsible-tittle').forEach(title => {
+    const section = title.dataset.section;
+    const content = title.nextElementSibling;
+    const icon = title.querySelector('i');
+
+    // Initialize from localStorage
+    if (section) {
+        const isCollapsed = localStorage.getItem(`section_collapsed_${section}`) === 'true';
+        if (isCollapsed) {
+            content.classList.add('collapsed');
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    }
+
     title.addEventListener('click', () => {
-        const content = title.nextElementSibling;
-        const icon = title.querySelector('i');
-        
         content.classList.toggle('collapsed');
         
-        if (content.classList.contains('collapsed')) {
+        const currentlyCollapsed = content.classList.contains('collapsed');
+        
+        if (currentlyCollapsed) {
             icon.classList.remove('fa-chevron-up');
             icon.classList.add('fa-chevron-down');
         } else {
             icon.classList.remove('fa-chevron-down');
             icon.classList.add('fa-chevron-up');
+        }
+
+        // Save to localStorage
+        if (section) {
+            localStorage.setItem(`section_collapsed_${section}`, currentlyCollapsed);
         }
     });
 });
