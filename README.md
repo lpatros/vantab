@@ -1,4 +1,4 @@
-[Versão em Português (PT-BR)](README-PTBR.md)
+[PT-BR](README-PTBR.md)
 
 <div align="center">
   <img src="assets/icons/home-128px.png" alt="Vantab Logo" width="100" style="margin-bottom: 30px;">

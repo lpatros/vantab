@@ -1,4 +1,4 @@
-[English version](README.md)
+[EN](README.md)
 
 <div align="center">
   <img src="assets/icons/home-128px.png" alt="Fabrica de Delicias Logo" width="100" style="margin-bottom: 30px;">
