@@ -28,8 +28,13 @@ const getWeatherIcon = (iconCode) => {
 }
 
 const fetchWeather = async (apiKey, city) => {
-  const units = localStorage.getItem('units') || 'metric';
-  const lang = localStorage.getItem('lang') || "pt_br";
+  const units = localStorage.getItem('units');
+  const lang = localStorage.getItem('lang');
+
+  if (!units || !lang) {
+    console.log("Units or language not provided.");
+    return;
+  }
   
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}&lang=${lang}`;
   
@@ -55,7 +60,7 @@ const setWeather = async () => {
   const city = localStorage.getItem('city');
   
   if (!apiKey || !city) {
-    console.error("API key or city not provided.");
+    console.log("API key or city not provided.");
     presentationWeatherElement.textContent = typeof t === 'function' ? t('weather_no_api') : "API key or city not provided.";
     return;
   }
@@ -63,7 +68,7 @@ const setWeather = async () => {
   const data = await fetchWeather(apiKey, city);
   
   if (!data) {
-    console.error("Weather data unavailable.");
+    console.log("Weather data unavailable.");
     presentationWeatherElement.textContent = typeof t === 'function' ? t('weather_unavailable') : "Weather data unavailable.";
     return;
   }

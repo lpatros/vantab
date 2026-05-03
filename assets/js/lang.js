@@ -105,14 +105,29 @@ const translations = {
   }
 };
 
+const getLangCode = () => {
+  let lang = localStorage.getItem('lang');
+
+  if (!lang) {
+    lang = navigator.language.startsWith('pt') ? 'pt_br' : 'en';
+    localStorage.setItem('lang', lang);
+  }
+  
+  // Also initialize default units if not set
+  if (!localStorage.getItem('units')) {
+    localStorage.setItem('units', 'metric');
+  }
+
+  return lang;
+};
+
 const getLang = () => {
-  const lang = localStorage.getItem('lang') || 'pt_br';
-  return translations[lang] ? lang : 'pt_br';
+  const langCode = getLangCode();
+  return translations[langCode] || translations['en'];
 };
 
 const t = (key) => {
-  const lang = getLang();
-  return translations[lang][key] || key;
+  return getLang()[key] || key; 
 };
 
 const updateAppLanguage = () => {
