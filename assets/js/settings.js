@@ -116,6 +116,9 @@ settingsSections.forEach(section => {
     }
 
     section.addEventListener('dragstart', (e) => {
+        // Only handle drag if it originated from the section itself, not a child
+        if (e.target !== section) return;
+
         // Double check if we are allowed to drag
         if (section.getAttribute('draggable') !== 'true') {
             e.preventDefault();
@@ -125,16 +128,18 @@ settingsSections.forEach(section => {
         e.dataTransfer.setData('text/plain', section.dataset.section);
     });
 
-    section.addEventListener('dragend', () => {
+    section.addEventListener('dragend', (e) => {
+        if (e.target !== section) return;
         section.classList.remove('dragging');
         section.setAttribute('draggable', 'false');
         saveSectionsOrder();
     });
 
     section.addEventListener('dragover', (e) => {
-        e.preventDefault();
         const draggingItem = document.querySelector('.settings-section.dragging');
         if (!draggingItem || draggingItem === section) return;
+
+        e.preventDefault();
 
         const rect = section.getBoundingClientRect();
         const offset = e.clientY - rect.top;
@@ -346,31 +351,6 @@ const renderLinkManager = () => {
     const shortcuts = typeof getShortcuts === 'function' ? getShortcuts() : [];
     
     linkManagerList.innerHTML = '';
-    
-    // Handle dragover on the container
-    linkManagerList.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        const draggingItem = document.querySelector('.dragging');
-        if (!draggingItem) return;
-        
-        const items = [...linkManagerList.querySelectorAll('.link-item:not(.dragging)')];
-        if (items.length === 0) {
-            linkManagerList.appendChild(draggingItem);
-            return;
-        }
-
-        const firstItem = items[0];
-        const firstRect = firstItem.getBoundingClientRect();
-        if (e.clientY < firstRect.top + firstRect.height / 2) {
-            linkManagerList.insertBefore(draggingItem, firstItem);
-        }
-
-        const lastItem = items[items.length - 1];
-        const lastRect = lastItem.getBoundingClientRect();
-        if (e.clientY > lastRect.top + lastRect.height / 2) {
-            linkManagerList.appendChild(draggingItem);
-        }
-    });
 
     shortcuts.forEach((shortcut, index) => {
         const item = document.createElement('div');
@@ -380,11 +360,13 @@ const renderLinkManager = () => {
         
         // Drag events
         item.addEventListener('dragstart', (e) => {
+            e.stopPropagation();
             item.classList.add('dragging');
             e.dataTransfer.setData('text/plain', index);
         });
 
-        item.addEventListener('dragend', () => {
+        item.addEventListener('dragend', (e) => {
+            e.stopPropagation();
             item.classList.remove('dragging');
             
             // Save new order based on DOM
@@ -402,9 +384,11 @@ const renderLinkManager = () => {
         });
 
         item.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            const draggingItem = document.querySelector('.dragging');
+            const draggingItem = document.querySelector('.link-item.dragging');
             if (!draggingItem || draggingItem === item) return;
+
+            e.preventDefault();
+            e.stopPropagation();
 
             const rect = item.getBoundingClientRect();
             const offset = e.clientY - rect.top;
@@ -476,6 +460,34 @@ const renderLinkManager = () => {
         linkManagerList.appendChild(item);
     });
 };
+
+// Handle dragover on the container (for top/bottom drops)
+if (linkManagerList) {
+    linkManagerList.addEventListener('dragover', (e) => {
+        const draggingItem = document.querySelector('.link-item.dragging');
+        if (!draggingItem) return;
+
+        e.preventDefault();
+        
+        const items = [...linkManagerList.querySelectorAll('.link-item:not(.dragging)')];
+        if (items.length === 0) {
+            linkManagerList.appendChild(draggingItem);
+            return;
+        }
+
+        const firstItem = items[0];
+        const firstRect = firstItem.getBoundingClientRect();
+        if (e.clientY < firstRect.top + firstRect.height / 2) {
+            linkManagerList.insertBefore(draggingItem, firstItem);
+        }
+
+        const lastItem = items[items.length - 1];
+        const lastRect = lastItem.getBoundingClientRect();
+        if (e.clientY > lastRect.top + lastRect.height / 2) {
+            linkManagerList.appendChild(draggingItem);
+        }
+    });
+}
 
 if (toggleAddLinkFormBtn) {
     toggleAddLinkFormBtn.addEventListener('click', () => {
