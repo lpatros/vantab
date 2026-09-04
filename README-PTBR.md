@@ -1,8 +1,10 @@
-[EN](README.md)
-
 <div align="center">
   <img src="assets/icons/home-128px.png" alt="Fabrica de Delicias Logo" width="100" style="margin-bottom: 30px;">
-  <h1 style="font-size: 32px; border: none; line-height: 0; font-weight: bold">Vantab</h1>
+
+# Vantab
+
+[English](README.md) | **Português**
+
   <p>Uma extensão de navegador que oferece uma página inicial simples e personalizável, criada para substituir a página padrão “Nova guia”</p>
     <div style="margin-bottom: 10px">
     <img src="https://img.shields.io/badge/Language-JavaScript-yellow.svg" alt="Language: JavaScript"/>

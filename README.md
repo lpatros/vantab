@@ -1,8 +1,10 @@
-[PT-BR](README-PTBR.md)
-
 <div align="center">
   <img src="assets/icons/home-128px.png" alt="Vantab Logo" width="100" style="margin-bottom: 30px;">
-  <h1 style="font-size: 32px; border: none; line-height: 0; font-weight: bold">Vantab</h1>
+
+# Vantab
+  
+**English** | [Português](README-PTBR.md)
+  
   <p>A browser extension that offers a simple and customizable homepage, designed to replace the default "New Tab" page</p>
     <div style="margin-bottom: 10px">
     <img src="https://img.shields.io/badge/Language-JavaScript-yellow.svg" alt="Language: JavaScript"/>
